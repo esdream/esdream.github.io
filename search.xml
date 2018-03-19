@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[conda-env]]></title>
+    <title><![CDATA[使用Anaconda实现Python环境配置与管理]]></title>
     <url>%2F2018%2F03%2F19%2Fconda-env%2F</url>
     <content type="text"><![CDATA[前言Anaconda 提供了Python环境配置与管理的终极解决方案，使用Anaconda能够方便地对Python packages安装、管理、导入等。 使用方法列出环境在终端中输入以下命令。1conda env list 列表中当前所在环境旁边有一个星号。默认的环境名为root。 创建环境在终端中输入1conda create -n env_name package_names 其中package_names可以省略，如果省略则会配置为当前默认的Python版本。在创建环境时，可以指定要安装在环境中的Python版本。例如这里创建环境名为py3，并安装最新版本的Python 3.6。1conda create -n py3 python=3.6 需要安装Python 2时同理。 激活环境在Windows上：1activate env_name 在Linux/OSX上：1source activate env_name 退出环境在Windows上：1deactivate 在Linux/OSX上：1source deactivate 共享环境环境导出在终端中输入：1conda env export &gt; environment.yml 将环境导出为environment.yml文件。 对于不使用conda的用户，使用以下命令将环境导出：1pip free &gt; environment.txt 环境导入conda用户在终端输入：1conda env update -f=/path/to/envirionment.yml 则可以让环境直接导入至conda中。 非conda用户使用pip导入环境在终端输入：1pip install -r /path/requirements.txt 删除环境1conda env remove -n env_name]]></content>
       <categories>
