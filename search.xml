@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Dropout与过拟合]]></title>
+    <url>%2F2018%2F03%2F30%2Fdropout-overfitting%2F</url>
+    <content type="text"><![CDATA[Dropout方法简介Dropout方法是解决神经网络过拟合问题的一个行之有效的方法。其过程如下： 在训练中，随机删除网络中隐藏层一定比例（例如50%）的units（图b中变为×的units）； 在删除units后的网络中进行训练，并更新units参数； 恢复被删除的units，再重新随机选择相同比例的units，重复第2步。直至训练迭代次数为止。 在预测时，将删除的units全部恢复，不再需要Dropout。 为什么Dropout能起到解决overfitting的作用？ 平均以抵消过拟合：每一次迭代由于是随机删除units，相当于k次迭代训练了k个不同的神经网络，完整的Dropout过程相当于对于不同的Neural Network取平均或者投票（类似于集成学习中的Bagging），这样可以有效防止过拟合。 减少神经元之间复杂的共适应关系：由于Dropout导致神经元不一定每次都在dropout网络中出现，能够减少网络对任一feature的依赖，使权值更新不再依赖于某一隐含节点，能够从其他节点中学习到一些共同的模式，增强鲁棒性，达到类似L2正则化的效果。 References: Dropout in (Deep) Machine learning 深度学习–Dropout Dropout解决过拟合问题]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>Dropout</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[使用Anaconda实现Python环境配置与管理]]></title>
     <url>%2F2018%2F03%2F19%2Fconda-env%2F</url>
     <content type="text"><![CDATA[前言Anaconda 提供了Python环境配置与管理的终极解决方案，使用Anaconda能够方便地对Python packages安装、管理、导入等。 使用方法列出环境在终端中输入以下命令。1conda env list 列表中当前所在环境旁边有一个星号。默认的环境名为root。 创建环境在终端中输入1conda create -n env_name package_names 其中package_names可以省略，如果省略则会配置为当前默认的Python版本。在创建环境时，可以指定要安装在环境中的Python版本。例如这里创建环境名为py3，并安装最新版本的Python 3.6。1conda create -n py3 python=3.6 需要安装Python 2时同理。 激活环境在Windows上：1activate env_name 在Linux/OSX上：1source activate env_name 退出环境在Windows上：1deactivate 在Linux/OSX上：1source deactivate 共享环境环境导出在终端中输入：1conda env export &gt; environment.yml 将环境导出为environment.yml文件。 对于不使用conda的用户，使用以下命令将环境导出：1pip free &gt; environment.txt 环境导入conda用户在终端输入：1conda env update -f=/path/to/envirionment.yml 则可以让环境直接导入至conda中。 非conda用户使用pip导入环境在终端输入：1pip install -r /path/requirements.txt 删除环境1conda env remove -n env_name]]></content>
@@ -38,7 +50,7 @@
   <entry>
     <title><![CDATA[详细解释均方差与方差]]></title>
     <url>%2F2017%2F05%2F11%2Fmean-square-error-and-variance%2F</url>
-    <content type="text"><![CDATA[在统计学和机器学习领域中，经常会使用到均方差和方差这两个词。那么它们有什么区别呢？ 定义均方差(Mean Square Error, MSE)的公式如下： $$MSD = {\sum_{i=0}^{n}(x_i - {\overline x})^2 \over n}$$ 方差(Variance)的公式如下： $$Var = {\sum_{i=0}^{n}(x_i - {\overline x})^2 \over n - 1}$$ 两者的共同点与区别事实上，二者都属于方差，也可以说是方差在不同情况下的两种表达方式。均方差(MSE)和均方根差(Root Mean Square Error, RMSE)在机器学习领域中更加常见。 唯一的不同点是，当分号下方系数为n - 1时，这是一个无偏估计的方差。 References: What is the difference between Mean Squared Deviation and Variance?]]></content>
+    <content type="text"><![CDATA[本文于2018年3月30日更新，从自由度上解释了MSE中N与N-1的区别。 在统计学和机器学习领域中，经常会使用到均方差和方差这两个词。那么它们有什么区别呢？ 定义均方差(Mean Square Error, MSE)的公式如下： $$MSE = {\sum_{i=0}^{n}(x_i - {\overline x})^2 \over n}$$ 方差(Variance)的公式如下： $$Var = {\sum_{i=0}^{n}(x_i - {\overline x})^2 \over n - 1}$$ 两者的共同点与区别事实上，二者都属于方差，也可以说是方差在不同情况下的两种表达方式。实际上二者并无区别。真正需要注意的是二者除以的样本数n与n-1。 在统计学中，存在 “自由度” 这一概念。自由度是指当以样本的统计量来估计总体的参数时，样本中独立或能自由变化的数据个数，称为该统计量的自由度。一般来说，自由度等于独立变量减掉其衍生量数；举例来说，对于n个随机且相互独立的样本，某一样本的样本值与其他样本的样本值没有任何关系，也就是说n个样本都会对均值$\overline x$产生影响，因此样本均值的自由度是n。 而在方差Var中，需要使用样本减平均值(一个由样本决定的衍伸量)。而在均值$\overline x$固定的情况下，n个随机样本中能够独立变化的样本值为n-1个，剩下的一个样本必然受其他n-1样本影响。因此对n个随机样本而言，其方差Var自由度为n-1。 在机器学习中，很多研究者不care自由度这一概念，因此MSE计算常用n。但从严格的统计学定义出发，用该使用n-1。 References: What is the difference between Mean Squared Deviation and Variance? 自由度(统计学))]]></content>
       <categories>
         <category>Math</category>
       </categories>
